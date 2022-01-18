@@ -5,7 +5,6 @@ enum class TipMoneda
 {
 	RON,
 	EUR,
-	DOlLAR
 };
 
 class ContBancar
@@ -15,7 +14,7 @@ class ContBancar
 	float m_sold;
 	std::string m_IBAN;
 	//TODO: tipul soldului va trebuii sa fie modificat intr-un enum 0=RON, 1=EUR.
-	int m_tipSold;
+	TipMoneda m_tipSold;
 public:
 	ContBancar(std::string nume, std::string prenume, std::string iban);
 	 
