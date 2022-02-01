@@ -39,20 +39,34 @@ int main()
             break;
         case 4:
             std::cout << "Ati ales optiunea 4 \n";
+            manager.EraseAccount();
             break;
         case 5:
             std::cout << "Ati ales optiunea 5 \n";
+            manager.Eliberare_Depunere();
             break;
         case 6:
-            std::cout << "Ati ales optiunea 6 \n";
             system("cls");
-            manager.printAllCounturi();
+            std::cout << "Ati ales optiunea 6 \n" << std::endl;
+            std::cout << "Pentru cautarea unui singur cont introduceti 1, iar pentru cautarea tuturor conturilor introduceti 0.\n";
+            int cautare;
+            std::cin >> cautare;
+            if (cautare)
+            {
+                system("cls");
+                std::cout << "Ai cautat un cont.\n";
+            }
+            else
+            {
+                system("cls");
+                manager.printAllCounturi();
+            }
             break;
         case 0:
-            std::cout << "Multumim, La revedere \n";
+            std::cout << "Multumim, La revedere. \n";
             break;
         default:
-            std::cout << "Optiune invalida \n";
+            std::cout << "Optiune invalida. \n";
             break;
         }
     } while (optiune != 0);

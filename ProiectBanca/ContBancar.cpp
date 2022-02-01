@@ -24,6 +24,11 @@ std::string ContBancar::getIban() const
 	return m_IBAN;
 }
 
+void ContBancar::manipulareSold(float suma)
+{
+	m_sold += suma;
+}
+
 float ContBancar::getSold() const
 {
 	return m_sold;

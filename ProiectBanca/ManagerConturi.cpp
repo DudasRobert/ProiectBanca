@@ -7,9 +7,10 @@ void ManagerConturi::adaugareCont()
 	std::cin >> nume;
 	std::cout << "Introduceti prenumele persoanei: \n";
 	std::cin >> prenume;
-	CreateIban();
+	iban=CreateIban();
 	ContBancar* cont = new ContBancar(nume, prenume, iban);
 	m_listaConturi.push_back(cont);
+	m_fileManager->WriteToCSV(nume, prenume, iban, cont->getSold());
 	
 	system("cls");
 
@@ -37,6 +38,50 @@ void ManagerConturi::printAllCounturi()
 
 }
 
+void ManagerConturi::printOneCont()
+{
+
+}
+
+void ManagerConturi::EraseAccount()
+{
+	std::cout << "Introduceti datele pentru contul care urmeaza sa fie sters.\n";
+
+	ContBancar* cont = FindAccout();
+	std::vector<ContBancar*>::iterator it = std::find(m_listaConturi.begin(), m_listaConturi.end(),cont);
+	m_listaConturi.erase(it);
+	delete cont;
+
+}
+
+void ManagerConturi::Eliberare_Depunere()
+{
+	ContBancar* cont = FindAccout();
+	if (cont != nullptr)
+	{
+		float valoare;
+		std::cout << "Introduceti valoarea dorita: \n";
+		std::cin >> valoare;
+		cont->manipulareSold(valoare);
+
+	}
+	else
+	{
+		std::cout << "Contul este inexistent.\n";
+	}
+
+}
+
+ManagerConturi::ManagerConturi()
+{
+	m_fileManager = new FileManager();
+}
+
+ManagerConturi::~ManagerConturi()
+{
+	delete m_fileManager;
+}
+
 std::string ManagerConturi::CreateIban()
 {
 	int iban = 11111 + (std::rand() % (99999));
@@ -46,4 +91,22 @@ std::string ManagerConturi::CreateIban()
 
 	return stringIbanComplet;
 
+}
+
+ContBancar* ManagerConturi::FindAccout()
+{
+	std::cout << "Numele Titularului: \n";
+	std::string nume;
+	std::cin >> nume;
+	//TODO Trebuie extins si cu prenume!
+
+	for (auto& cont : m_listaConturi)
+	{
+		if (cont->getNume() == nume)
+			return cont;
+
+	}
+
+	std::cout << "Titularul nu a fost gasit.\n";
+	return nullptr;
 }
